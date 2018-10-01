@@ -1,0 +1,23 @@
+.filters{
+    background-color: #515151;
+    width: 30%;
+}
+
+.search-button{
+    background-color: #eee
+}
+
+.search-label{
+    color: #ffffff;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+.title{
+    color: #CCCCCC;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
