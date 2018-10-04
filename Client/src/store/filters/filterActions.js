@@ -23,6 +23,7 @@ export function loadFilters() {
     return (dispatch) => { 
         dispatch(filtersLoading); 
         fetch('/api/getFilters')
+            .then((result) => result.json())
             .then((data) => { 
                 dispatch(filtersLoaded(data)); 
             }) 

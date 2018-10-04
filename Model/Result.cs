@@ -1,17 +1,17 @@
 ﻿using System;
-namespace Model.ViewModels
+namespace Model
 {
     public class Result
     {
         public string Identifier { get; }
         public string Description { get; }
         public string Software { get; }
-        public DateTime Date { get; }
+        public string Date { get; }
 
         public Result(Vulnerability vulnerability){
             Identifier = vulnerability.Identifier;
             Description = vulnerability.Description;
-            Software = vulnerability.SofrwareName;
+            Software = vulnerability.SoftwareVendor;
             Date = vulnerability.DetectionDate;
         }
     }

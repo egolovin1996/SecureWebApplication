@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Model.ViewModels
+namespace Model.Filters
 {
     public class Filter
     {

@@ -5,7 +5,22 @@ const initialState = {
     take: 10,
     skip: 0,
     orderBy: '',
-    whereEqualsOptions: []
+    whereFilters: []
+}
+
+function mapDictionaryToFilter(dictionary){
+    var result = [];
+    for (var propertyName in dictionary){
+        const value = dictionary[propertyName];
+        if(value){
+            result.push({
+                propertyName: propertyName,
+                value: dictionary[propertyName]
+            })
+        }
+    }
+
+    return result;
 }
 
 export default function filterOptionsReducer(state = initialState, action) {
@@ -19,7 +34,7 @@ export default function filterOptionsReducer(state = initialState, action) {
         case FILTER_OPTIONS_SET_WHERE:
             return { 
                 ...state, 
-                whereEqualsOptions: action.payload.whereEqualsOptions
+                whereFilters: mapDictionaryToFilter(action.payload.whereEqualsOptions)
             }
 
         case FILTER_OPTIONS_SET_ORDERBY:

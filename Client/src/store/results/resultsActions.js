@@ -17,17 +17,25 @@ function resultsLoaded(data) {
             data 
         } 
     }; 
-} 
+}
     
-export function loadResults() {
-    return (dispatch) => { 
-        dispatch(resultsLoading); 
-        fetch('/api/getResults')
+export function loadResults(options) {
+    return (dispatch) => {
+        dispatch(resultsLoading);
+        const fetchOptions = {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json, text/javascript, */*',
+                'Content-Type': 'application/json' 
+            }, 
+            body: JSON.stringify(options)
+        };
+        fetch('/api/getResults', fetchOptions)
+            .then((result) => result.json())
             .then((data) => { 
                 dispatch(resultsLoaded(data)); 
             }) 
             .catch((err) => { 
-                //dispatch(error); 
                 throw err; 
             }) 
     } 

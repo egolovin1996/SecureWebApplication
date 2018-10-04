@@ -1,33 +1,46 @@
 import React from 'react';
-import Result from './Result'
+import Result from './Result';
+import { connect } from 'react-redux';
+import { loadResults } from '../../store/results/resultsActions';
 
 class Table extends React.Component{
+    componentWillMount() {
+        this.props.loadResults(this.props.options);
+    }
+
     render(){
         return(
            <table>
                <tbody>
-               <Result
-                    id="BDU:2018-01143"
-                    text="Уязвимость компонента Windows GDI операционных систем Windows, позволяющая нарушителю раскрыть защищаемую информацию"
-                    soft="Microsoft Corp. Windows Server 2008 R2 SP1"
-                    date="11.09.2018"
-                />
-                <Result 
-                    id="BDU:2018-01143"
-                    text="Уязвимость компонента Windows GDI операционных систем Windows, позволяющая нарушителю раскрыть защищаемую информацию"
-                    soft="Microsoft Corp. Windows Server 2008 R2 SP1"
-                    date="11.09.2018"
-                />
-                <Result 
-                    id="BDU:2018-01143"
-                    text="Уязвимость компонента Windows GDI операционных систем Windows, позволяющая нарушителю раскрыть защищаемую информацию"
-                    soft="Microsoft Corp. Windows Server 2008 R2 SP1"
-                    date="11.09.2018"
-                />
+               {
+                    this.props.results && this.props.results.map(
+                        (item) =>
+                            <Result
+                                id={item.identifier}
+                                text={item.description}
+                                soft={item.software}
+                                date={item.date}
+                            />)
+                }
                </tbody>
            </table>
         );
     }
 }
 
-export default Table;
+const mapStateToProps = (state) => {
+    return {
+        results: state.results.results,
+        options: state.filterOptions
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadResults: (options) => {
+            dispatch(loadResults(options));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

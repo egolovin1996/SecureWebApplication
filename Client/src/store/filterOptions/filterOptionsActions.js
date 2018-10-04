@@ -1,4 +1,7 @@
-import { FILTER_OPTIONS_SET_PAGE, FILTER_OPTIONS_SET_WHERE, FILTER_OPTIONS_SET_ORDERBY } from "./actionTypes";
+import { 
+    FILTER_OPTIONS_SET_PAGE, 
+    FILTER_OPTIONS_SET_WHERE, 
+    FILTER_OPTIONS_SET_ORDERBY } from "../actionTypes";
     
 export function filterOptionsSetPage(pageNumber) { 
     return { 
@@ -9,7 +12,7 @@ export function filterOptionsSetPage(pageNumber) {
     }; 
 } 
     
-export function filtersLoaded(options) {
+export function filtersOptionsSetWhere(options) {
     return { 
         type: FILTER_OPTIONS_SET_WHERE,
         payload: { 
@@ -18,7 +21,7 @@ export function filtersLoaded(options) {
     }; 
 }
 
-export function filtersLoaded(columnName) {
+export function filtersOptionsSetOrderColumnName(columnName) {
     return { 
         type: FILTER_OPTIONS_SET_ORDERBY,
         payload: { 
