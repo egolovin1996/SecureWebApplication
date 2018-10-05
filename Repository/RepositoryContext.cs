@@ -7,7 +7,7 @@ namespace Repository
     {
         public DbSet<Vulnerability> Vulnerabilities { get; set; }
 
-        public RepositoryContext(DbContextOptions<RepositoryContext> options) 
+        public RepositoryContext(DbContextOptions options) 
             : base(options) { }
     }
 }

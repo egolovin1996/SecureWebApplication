@@ -18,7 +18,7 @@ namespace Repository
 
             var config = builder.Build();
             var connectionString = config.GetConnectionString("PostgreSQLConnection");
-            var repositoryFactory = new PostgreSQLContextFactory();
+            var repositoryFactory = new PostgreSqlContextFactory();
 
             return repositoryFactory.CreateDbContext(connectionString);
         }

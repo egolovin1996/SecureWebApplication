@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,11 +32,14 @@ namespace SecureWeb
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // AddScope – инстанс создается 1 раз на каждый request от клиента к серверу
-            services.AddScoped<IRepositoryContextFactory, PostgreSQLContextFactory>();
+            services.AddScoped<IRepositoryContextFactory, PostgreSqlContextFactory>();
             services.AddScoped<IVulnerabilityRepository>(
                 provider => new VulnerabilityRepository(
                     Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
+
+            services.AddDbContext<UserContext>(provider => Configuration.GetConnectionString("PostgreSQLConnection"));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
