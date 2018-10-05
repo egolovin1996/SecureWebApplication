@@ -14,12 +14,12 @@ namespace Repository
             return new RepositoryContext(optionsBuilder.Options);
         }
 
-        public IdentityDbContext CreateIdentityContext(string connectionString)
+        public UserContext CreateIdentityContext(string connectionString)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<RepositoryContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<UserContext>();
             optionsBuilder.UseNpgsql(connectionString);
 
-            return new IdentityDbContext(optionsBuilder.Options);
+            return new UserContext(optionsBuilder.Options);
         }
     }
 }

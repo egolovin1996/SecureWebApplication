@@ -23,8 +23,8 @@ namespace SecureWeb
             {
                 var services = scope.ServiceProvider;
                 var factory = services.GetRequiredService<IRepositoryContextFactory>();
-                factory.CreateDbContext(config.GetConnectionString("PostgreSQLConnection"))
-                       .Database.Migrate();
+                factory.CreateDbContext(config.GetConnectionString("PostgreSQLConnection")).Database.Migrate();
+                factory.CreateIdentityContext(config.GetConnectionString("PostgreSQLConnection")).Database.Migrate();
             }
 
             host.Run();
