@@ -1,7 +1,7 @@
 ﻿using System;
 using Repository.Interfaces;
 
-namespace Repository.Base
+namespace Repository.Repositories.Base
 {
     public abstract class BaseRepository: IDisposable
     {

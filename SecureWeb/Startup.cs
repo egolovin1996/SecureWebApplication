@@ -11,8 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Repository;
-using Repository.Base;
 using Repository.Interfaces;
+using Repository.Repositories;
+using Repository.Factories;
 
 namespace SecureWeb
 {
@@ -34,6 +35,10 @@ namespace SecureWeb
             services.AddScoped<IRepositoryContextFactory, PostgreSQLContextFactory>();
             services.AddScoped<IVulnerabilityRepository>(
                 provider => new VulnerabilityRepository(
+                    Configuration.GetConnectionString("PostgreSQLConnection"),
+                    provider.GetService<IRepositoryContextFactory>()));
+            services.AddScoped<IUserRepository>(
+                provider => new UserRepository(
                     Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
         }

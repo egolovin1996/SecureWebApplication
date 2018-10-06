@@ -1,14 +1,18 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Model.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Identity
+namespace Repository.InternalModels
 {
-    public class User
+    internal class User
     {
         public int Id { get; set; }
 
         [Required]
         [Description("Имя пользователя")]
+        [StringLength(100)]
+        //[Index(IsUnique = true)]
         public string Name { get; set; }
 
         [Required]

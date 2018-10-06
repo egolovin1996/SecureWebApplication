@@ -5,8 +5,10 @@ namespace Repository.Interfaces
 {
     public interface IUserRepository
     {
-        void Add(User user);
-        void Delete(int id);
-        IEnumerable<User> GetAll();
+        void CreateUser(UserCreateModel user);
+        void DeleteUser(int id);
+        UserDisplayModel GetUser(int id);
+        UserDisplayModel GetUser(string name);
+        IEnumerable<UserDisplayModel> GetAllUsers();
     }
 }

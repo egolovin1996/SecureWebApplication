@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+using Repository;
+using System.Threading.Tasks;
 
 namespace SecureWeb
 {
@@ -18,13 +19,18 @@ namespace SecureWeb
             var config = builder.Build();
 
             var host = BuildWebHost(args);
-            // Накатываем все миграции которых нет в базе
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+
                 var factory = services.GetRequiredService<IRepositoryContextFactory>();
-                factory.CreateDbContext(config.GetConnectionString("PostgreSQLConnection"))
-                       .Database.Migrate();
+                using (var context = factory.CreateDbContext(config.GetConnectionString("PostgreSQLConnection")))
+                {
+                    // Накатываем все миграции которых нет в базе
+                    // И инициализируем необходимые данные
+                    DbInitializer.Initialize(context);
+                }
             }
 
             host.Run();

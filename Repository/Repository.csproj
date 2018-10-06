@@ -23,5 +23,7 @@
     <Folder Include="Repositories\" />
     <Folder Include="Repositories\Base\" />
     <Folder Include="Factories\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="InternalModels\" />
   </ItemGroup>
 </Project>

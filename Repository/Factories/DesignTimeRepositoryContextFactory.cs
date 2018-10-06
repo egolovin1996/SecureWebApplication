@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Repository
+namespace Repository.Factories
 {
     // Необходимо для утилиты миграции
     // Для создания миграции из папки с проектом Repository

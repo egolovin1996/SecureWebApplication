@@ -2,7 +2,7 @@
 using Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository
+namespace Repository.Factories
 {
     public class PostgreSQLContextFactory: IRepositoryContextFactory
     {
