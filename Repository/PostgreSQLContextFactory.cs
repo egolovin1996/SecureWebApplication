@@ -1,6 +1,5 @@
 ﻿using Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Repository
 {

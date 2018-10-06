@@ -14,6 +14,9 @@ using Microsoft.Extensions.Options;
 using Repository;
 using Repository.Base;
 using Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace SecureWeb
 {
@@ -38,9 +41,19 @@ namespace SecureWeb
                     Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
 
-            services.AddDbContext<UserContext>(provider => Configuration.GetConnectionString("PostgreSQLConnection"));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserContext>();
-        }
+            services.AddDbContext<UserContext>(options => 
+                                               options.UseNpgsql(
+                                                   Configuration.GetConnectionString("PostgreSQLConnection")));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UserContext>();
+
+            // Добавляем авторизацию через JWT
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "api://default2";
+                    options.Audience = "api://default";
+                });
+           }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -55,6 +68,7 @@ namespace SecureWeb
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

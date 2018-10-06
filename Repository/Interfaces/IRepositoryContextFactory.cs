@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
-namespace Repository.Interfaces
+﻿namespace Repository.Interfaces
 {
     public interface IRepositoryContextFactory
     {
