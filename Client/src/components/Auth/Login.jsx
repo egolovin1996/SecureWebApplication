@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { login, logout } from '../store/auth/authActions'
+import { login, logout } from '../../store/auth/authActions'
 
 class Login extends React.Component {
     constructor(props){
@@ -37,19 +37,24 @@ class Login extends React.Component {
         const { username, password } = this.state;
 
         return(
-            <div>
-                <form name="form" onSubmit={this.handleSubmit}>
+            <form name="form" onSubmit={this.handleSubmit}>
                     <div className='form-group'>
-                        <label htmlFor="username">Имя пользователя</label>
+                        <label htmlFor="username" className="font-weight-bold"> 
+                            Имя пользователя
+                        </label>
                         <input type="text" className="form-control" 
+                            placeholder="Имя пользователя"
                             name="username" 
                             value={username} 
                             onChange={this.handleChange} 
                         />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password" className="font-weight-bold">
+                            Пароль
+                        </label>
                         <input type="password" className="form-control" 
+                            placeholder="Пароль"
                             name="password" 
                             value={password} 
                             onChange={this.handleChange} 
@@ -59,8 +64,6 @@ class Login extends React.Component {
                         <button className="btn btn-primary">Войти</button>
                     </div>
                 </form>
-                
-            </div>
         )
     }
 }

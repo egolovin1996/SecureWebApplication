@@ -20,7 +20,7 @@ class Filters extends React.Component{
                 {
                     this.props.filters && this.props.filters.map(
                         (item) =>
-                            <Search labelText="Search1" 
+                            <Search
                                 placeholder={item.placeholder}
                                 labelText={item.label}
                                 setValue={(value) => {

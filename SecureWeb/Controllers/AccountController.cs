@@ -31,8 +31,8 @@ namespace SecureWeb.Controllers
         }
 
         [HttpPost]
-        [Route("createUser")]
-        public IActionResult CreateUser([FromBody] RegisterViewModel model)
+        [Route("register")]
+        public IActionResult Register([FromBody] RegisterViewModel model)
         {
             var user = new UserCreateModel()
             {
@@ -44,6 +44,7 @@ namespace SecureWeb.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("deleteUser")]
         public IActionResult DeleteUser(int id)

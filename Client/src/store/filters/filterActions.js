@@ -1,5 +1,6 @@
 import { FILTERS_LOADING, FILTERS_LOADED } from "../actionTypes";
-    
+import { getAuthHeader, handleResponse } from '../../helpers/requestHelper'
+
 function filtersLoading() { 
     return { 
         type: FILTERS_LOADING, 
@@ -22,8 +23,11 @@ function filtersLoaded(data) {
 export function loadFilters() {
     return (dispatch) => { 
         dispatch(filtersLoading); 
-        fetch('/api/getFilters')
-            .then((result) => result.json())
+        const requestOptions = {
+            headers: getAuthHeader(), 
+        };
+        fetch('/api/vulnerability/getFilters', requestOptions)
+            .then(handleResponse)
             .then((data) => { 
                 dispatch(filtersLoaded(data)); 
             }) 

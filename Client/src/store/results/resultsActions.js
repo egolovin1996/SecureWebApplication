@@ -1,4 +1,5 @@
-import { RESULTS_LOADING, RESULTS_LOADED } from "../actionTypes";
+import { RESULTS_LOADING, RESULTS_LOADED } from '../actionTypes';
+import { getAuthHeader, handleResponse } from '../../helpers/requestHelper'
     
 function resultsLoading() { 
     return { 
@@ -22,16 +23,13 @@ function resultsLoaded(data) {
 export function loadResults(options) {
     return (dispatch) => {
         dispatch(resultsLoading);
-        const fetchOptions = {
+        const requestOptions = {
             method: "POST",
-            headers: {
-                'Accept': 'application/json, text/javascript, */*',
-                'Content-Type': 'application/json' 
-            }, 
+            headers: getAuthHeader(), 
             body: JSON.stringify(options)
         };
-        fetch('/api/getResults', fetchOptions)
-            .then((result) => result.json())
+        fetch('/api/vulnerability/getResults', requestOptions)
+            .then(handleResponse)
             .then((data) => { 
                 dispatch(resultsLoaded(data)); 
             }) 

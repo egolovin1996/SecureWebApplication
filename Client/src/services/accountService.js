@@ -1,3 +1,5 @@
+import { handleResponse } from '../helpers/requestHelper'
+
 export const accountService = {
     login,
     logout,
@@ -13,12 +15,12 @@ function login(username, password) {
 
     return fetch('api/account/getToken', requestOptions)
         .then(handleResponse)
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('user', JSON.stringify(data.token));
+        .then(user => {
+            if (user.token) {
+                localStorage.setItem('user', JSON.stringify(user));
             }
 
-            return data;
+            return user;
         });
 }
 
@@ -42,22 +44,4 @@ function register(user){
 
             // Добавить обработчик ошибок
         });
-}
-
-function handleResponse(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            // Если токен просрочет, то logout
-            if (response.status === 401) {
-                logout();
-                //location.reload(true);
-            }
-
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
-        }
-
-        return data;
-    });
 }
