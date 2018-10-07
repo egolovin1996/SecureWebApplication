@@ -14,6 +14,9 @@ using Repository;
 using Repository.Interfaces;
 using Repository.Repositories;
 using Repository.Factories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using SecureWeb.Helpers;
 
 namespace SecureWeb
 {
@@ -25,10 +28,26 @@ namespace SecureWeb
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.SaveToken = true;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ClockSkew = TimeSpan.Zero
+                        };
+                    });
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // AddScope – инстанс создается 1 раз на каждый request от клиента к серверу
@@ -42,8 +61,7 @@ namespace SecureWeb
                     Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -55,7 +73,8 @@ namespace SecureWeb
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseAuthentication();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

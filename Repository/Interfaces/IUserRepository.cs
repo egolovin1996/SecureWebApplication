@@ -9,6 +9,7 @@ namespace Repository.Interfaces
         void DeleteUser(int id);
         UserDisplayModel GetUser(int id);
         UserDisplayModel GetUser(string name);
+        UserDisplayModel GetUser(string name, string password);
         IEnumerable<UserDisplayModel> GetAllUsers();
     }
 }

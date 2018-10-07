@@ -32,12 +32,6 @@ namespace Repository.Repositories
             Context.SaveChanges();
         }
 
-        public IEnumerable<UserDisplayModel> GetAllUsers()
-        {
-            // Реализовать эксплисит
-            return Context.Users.Select(u => UserToDisplayModel(u));
-        }
-
         public UserDisplayModel GetUser(int id)
         {
             var user = Context.Users.Single(u => u.Id == id);
@@ -48,6 +42,23 @@ namespace Repository.Repositories
         {
             var user = Context.Users.Single(u => u.Name == name);
             return UserToDisplayModel(user);
+        }
+
+        public UserDisplayModel GetUser(string name, string password)
+        {
+            var user = Context.Users.FirstOrDefault(u => u.Name == name);
+            if (user == null) return null;
+
+            var passwordHash = IdentityHelper.GetPasswordHash(password);
+            if (passwordHash != user.PasswordHash) return null;
+
+            return UserToDisplayModel(user);
+        }
+
+        public IEnumerable<UserDisplayModel> GetAllUsers()
+        {
+            // Реализовать эксплисит
+            return Context.Users.Select(u => UserToDisplayModel(u));
         }
 
         private UserDisplayModel UserToDisplayModel(User user) 
