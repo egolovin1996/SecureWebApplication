@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import { PrivateRoute} from './components/PrivateRoute'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Filters from './components/Filters/Filters'
-import Table from './components/Relults/Table'
+import Login from './components/Login';
+import Home from './components/Home';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="container-fluid"> 
-          <div className="row no-gutters"> 
-            <div className="col-3"> 
-              <Filters/> 
-            </div> 
-            <div className="col-9"> 
-              <Table/> 
-            </div> 
+      <div>
+          <div className="container">
+            <Switch>
+                {/* <PrivateRoute exact path="/" component={Home} /> */}
+                <Route exact path="/" component={Home}/>
+                <Route path="/login" component={Login} />
+            </Switch>
           </div>
-        </div> 
       </div> 
     );
   }
