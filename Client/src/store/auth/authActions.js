@@ -1,5 +1,6 @@
 import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE, AUTH_LOGOUT } from '../actionTypes';
 import { accountService } from '../../services/accountService';
+import { history } from '../../helpers/history'
 
 export function login(username, password) {
     return dispatch => {
@@ -9,7 +10,7 @@ export function login(username, password) {
             .then(
                 user => { 
                     dispatch(success(user));
-                    //history.push('/');
+                    history.push('/');
                 },
                 error => {
                     dispatch(failure(error));

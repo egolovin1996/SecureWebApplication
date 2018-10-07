@@ -92,7 +92,13 @@ namespace SecureWeb.Controllers
                     AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
 
-            var result = new JwtSecurityTokenHandler().WriteToken(token);
+            var encodedToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+            var result = new
+            {
+                token = encodedToken,
+                username = identity.Name
+            };
 
             return Ok(result);
         }
