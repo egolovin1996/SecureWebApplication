@@ -6,24 +6,13 @@ class Result extends React.Component{
         return(
            <tr>
                 <td>
-                    <h4>
-                        <a className="id" href={this.props.herf}>{
-                            this.props.id}
-                        </a>
-                    </h4>
+                    {this.props.id}
                 </td>
                 <td>
-                    <div>
-                        {this.props.text}
-                    </div>
-                    <div>
-                        {this.props.soft}
-                    </div>
+                    {this.props.text}
                 </td>
                 <td>
-                    <span>
-                        {this.props.date}
-                    </span>
+                    {this.props.date}
                 </td>
            </tr>
         );

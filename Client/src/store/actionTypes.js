@@ -13,3 +13,8 @@ export const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";
 export const AUTH_LOGIN_FAILURE = "AUTH_LOGIN_FAILURE";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
+export const MENU_LOADED = "MENU_LOADED";
+export const MENU_CLEAR = "MENU_CLEAR";
+
+export const USERS_LOADED = "USERS_LOADED";
+

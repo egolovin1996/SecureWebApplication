@@ -10,7 +10,9 @@ class Table extends React.Component{
 
     render(){
         return(
-           <table>
+           <table class="table">
+               <thead>
+               </thead>
                <tbody>
                {
                     this.props.results && this.props.results.map(

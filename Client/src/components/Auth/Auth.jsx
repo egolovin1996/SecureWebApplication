@@ -23,18 +23,23 @@ class Auth extends React.Component {
     render() {
         const isLogingPage = this.state.isLoginPage;
         return(
-            <div class="container-fluid">
+            <div className="container">
                 <div className="row">
                     <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3">
-                        <nav class="nav nav-justified">
-                            <button class="nav-item nav-link btn btn-link active"
+                        <nav className="nav nav-justified">
+                            <button className="nav-item nav-link btn btn-link active"
                                 onClick={this.handleLoginClick}>
-                                    <h3 class="font-weight-bold">Вход</h3>
+                                { isLogingPage 
+                                    ? (<h3 className="font-weight-bold">Вход</h3>) 
+                                    : (<h4 className="font-weight-bold">Вход</h4>)
+                                }    
                             </button>
-                            <button class="nav-item nav-link btn btn-link" 
-
+                            <button className="nav-item nav-link btn btn-link" 
                                 onClick={this.handleRegisterClick}>
-                                    <h3 class="font-weight-bold">Регистрация</h3>
+                                    { isLogingPage 
+                                    ? (<h4 className="font-weight-bold">Регистрация</h4>) 
+                                    : (<h3 className="font-weight-bold">Регистрация</h3>)
+                                } 
                             </button>
                         </nav>
                         { isLogingPage ? (<Login/>): (<Register/>)}

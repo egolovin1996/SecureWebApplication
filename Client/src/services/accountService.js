@@ -3,7 +3,13 @@ import { handleResponse } from '../helpers/requestHelper'
 export const accountService = {
     login,
     logout,
-    register
+    register,
+    isAuthenticated
+}
+
+function isAuthenticated() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    return user && user.token ? true : false;
 }
 
 function login(username, password) {
@@ -36,12 +42,5 @@ function register(user){
         body: JSON.stringify(user)
     };
 
-    return fetch('api/account/createUser', requestOptions)
-        .then(response => {
-            if(response.status === 200){
-                login(user.userName, user.password);
-            }
-
-            // Добавить обработчик ошибок
-        });
+    return fetch('api/account/register', requestOptions);
 }

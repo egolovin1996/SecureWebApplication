@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, logout } from '../../store/auth/authActions'
+import { register } from '../../store/auth/authActions'
 
 class Register extends React.Component {
     constructor(props){
         super(props)
 
-        // При открытии делаем logout
-        this.props.dispatch(logout());
-
         this.state = {
-            username: '',
-            password: ''
+            userName: '',
+            password: '',
+            passwordConfirm: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,26 +24,26 @@ class Register extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        const { username, password } = this.state;
+        const { userName, password, passwordConfirm } = this.state;
         const { dispatch } = this.props;
-        if (username && password) {
-            dispatch(login(username, password));
+        if (userName && password && passwordConfirm) {
+            dispatch(register({userName, password, passwordConfirm}));
         }
     }
 
     render() {
-        const { username, password } = this.state;
+        const { userName, password, passwordConfirm } = this.state;
 
         return(
             <form name="form" onSubmit={this.handleSubmit}>
                     <div className='form-group'>
-                        <label htmlFor="username" className="font-weight-bold"> 
+                        <label htmlFor="userName" className="font-weight-bold"> 
                             Имя пользователя
                         </label>
                         <input type="text" className="form-control" 
                             placeholder="Имя пользователя"
-                            name="username" 
-                            value={username} 
+                            name="userName" 
+                            value={userName} 
                             onChange={this.handleChange} 
                         />
                     </div>
@@ -61,13 +59,13 @@ class Register extends React.Component {
                         />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="password" className="font-weight-bold">
+                        <label htmlFor="passwordConfirm" className="font-weight-bold">
                             Подтверждение пароля
                         </label>
                         <input type="password" className="form-control" 
                             placeholder="Пароль"
-                            name="password" 
-                            value={password} 
+                            name="passwordConfirm" 
+                            value={passwordConfirm} 
                             onChange={this.handleChange} 
                         />
                     </div>

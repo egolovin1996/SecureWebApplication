@@ -65,7 +65,8 @@ namespace Repository.Repositories
             => new UserDisplayModel()
                 {
                     Id = user.Id,
-                    Name = user.Name
+                    Name = user.Name,
+                    Role = user.Role
                 };
     }
 }

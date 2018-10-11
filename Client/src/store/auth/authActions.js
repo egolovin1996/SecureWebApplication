@@ -1,15 +1,17 @@
 import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE, AUTH_LOGOUT } from '../actionTypes';
 import { accountService } from '../../services/accountService';
 import { history } from '../../helpers/history'
+import { loadMenu, clearMenu } from '../menu/menuActions'
 
-export function login(username, password) {
+
+export function login(userName, password) {
     return dispatch => {
-        dispatch(request({ username }));
-
-        accountService.login(username, password)
+        dispatch(request({ userName }));
+        accountService.login(userName, password)
             .then(
                 user => { 
                     dispatch(success(user));
+                    dispatch(loadMenu());
                     history.push('/');
                 },
                 error => {
@@ -47,10 +49,32 @@ export function login(username, password) {
 }
 
 export function logout() {
-    accountService.logout();
-    return { 
-        type: AUTH_LOGOUT 
-    };
+    return dispatch => {
+        accountService.logout();
+        dispatch(clearMenu());
+        dispatch(success());
+    }
+
+    function success() {
+        return { 
+            type: AUTH_LOGOUT 
+        };
+    }
+    
+}
+
+export function register(model) {
+    return dispatch => {
+        accountService.register(model)
+        .then(response => {
+            if(response.status === 200){
+                console.log(response);
+                dispatch(login(model.userName, model.password));
+            }
+
+            // Добавить обработчик ошибок
+        });
+    }
 }
 
 

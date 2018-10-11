@@ -5,9 +5,9 @@ import {
     AUTH_LOGOUT } from '../actionTypes';
 
 let user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? { loggedIn: true, user } : {};
+const initialState = user ? { loggedIn: true, user } : { loggedIn: false };
 
-export function authentication(state = initialState, action) {
+export default function authentication(state = initialState, action) {
   switch (action.type) {
     case AUTH_LOGIN_REQUEST:
       return {
@@ -20,9 +20,9 @@ export function authentication(state = initialState, action) {
         user: action.payload.user
       };
     case AUTH_LOGIN_FAILURE:
-      return {};
+      return { loggedIn: false };
     case AUTH_LOGOUT:
-      return {};
+      return { loggedIn: false };
     default:
       return state
   }

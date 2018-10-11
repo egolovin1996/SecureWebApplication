@@ -37,14 +37,15 @@ namespace SecureWeb.Controllers
             var user = new UserCreateModel()
             {
                 Name = model.UserName,
-                Password = model.Password
+                Password = model.Password,
+                Role = Role.User
             };
             _repository.CreateUser(user);
 
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         [Route("deleteUser")]
         public IActionResult DeleteUser(int id)
@@ -57,9 +58,13 @@ namespace SecureWeb.Controllers
         [Authorize]
         [HttpGet]
         [Route("getAllUsers")]
-        public IEnumerable<UserDisplayModel> GetAllUsers()
+        public IEnumerable<UserViewModel> GetAllUsers()
         {
-            return _repository.GetAllUsers().ToList();
+            return _repository.GetAllUsers().Select(u => new UserViewModel(){
+                Id = u.Id,
+                Name = u.Name,
+                Role = EnumHelper.RoleToString(u.Role)
+            }).ToList();
         }
 
         [HttpPost]
@@ -73,7 +78,8 @@ namespace SecureWeb.Controllers
             ClaimsIdentity identity = null;
             var claims = new List<Claim> 
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, EnumHelper.RoleToString(user.Role))
             };
             identity = new ClaimsIdentity(
                 claims,

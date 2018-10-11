@@ -16,25 +16,26 @@ class Filters extends React.Component{
     render(){
         return(
             <div>
-                <div className="form-group">
                 {
                     this.props.filters && this.props.filters.map(
                         (item) =>
+                        <div className="form-group">
                             <Search
                                 placeholder={item.placeholder}
                                 labelText={item.label}
                                 setValue={(value) => {
                                     this.addFilterToWhere(item.propertyName, value)}}
-                            />)
+                            />
+                        </div> 
+                    )
                 }
-                </div>
                 <div>
                     <Button buttonClass="btn-light" text="Сброс"/>
-                    <Button 
-                        buttonClass="btn-success" 
-                        text="Применить" 
-                        clickCallback={this.applyCallback}/>
-                </div>
+                        <Button 
+                            buttonClass="btn-success" 
+                            text="Применить" 
+                            clickCallback={this.applyCallback}/>
+                    </div>
             </div>
         );
     }
