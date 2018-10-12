@@ -11,8 +11,7 @@ namespace Repository.InternalModels
 
         [Required]
         [Description("Имя пользователя")]
-        [StringLength(100)]
-        //[Index(IsUnique = true)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Required]

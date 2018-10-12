@@ -35,3 +35,18 @@ export function deleteUser(id){
             })
     } 
 }
+
+export function createUser(user){
+    return (dispatch) => {
+        const requestOptions = {
+            method: "POST",
+            headers: getAuthHeader(),
+            body: JSON.stringify(user)
+        };
+        fetch('/api/account/createUser', requestOptions)
+            .then(handleResponse)
+            .then(()=> { 
+                dispatch(loadUsers());
+            })
+    } 
+}

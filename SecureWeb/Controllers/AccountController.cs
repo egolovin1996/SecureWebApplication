@@ -46,8 +46,23 @@ namespace SecureWeb.Controllers
         }
 
         [Authorize(Roles = "admin")]
+        [HttpPost]
+        [Route("createUser")]
+        public IActionResult CreateUser([FromBody] CreateUserViewModel model)
+        {
+            _repository.CreateUser(new UserCreateModel()
+            {
+                Name = model.UserName,
+                Role = model.Role,
+                Password = model.Password
+            });
+
+            return Ok();
+        }
+
+        [Authorize(Roles = "admin")]
         [HttpGet]
-        [Route("deleteUser")]
+        [Route("deleteUser/{id}")]
         public IActionResult DeleteUser(int id)
         {
             _repository.DeleteUser(id);

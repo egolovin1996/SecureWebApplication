@@ -1,11 +1,43 @@
 import React from 'react'
 import UserItem from './UserItem';
+import UserCreateItem from './UserCreateItem'
 import { connect } from 'react-redux';
-import { loadUsers, deleteUser } from '../../store/admin/adminActions';
+import { loadUsers, deleteUser, createUser } from '../../store/admin/adminActions';
+import { Date } from 'core-js';
 
 class Users extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            newUsers: []
+        }
+    }
+
     componentDidMount(){
         this.props.loadUsers();
+        
+    }
+
+    createUser = (user) => {
+        this.props.createUser(user);
+    }
+
+    addUserCreateItem = () => {
+        const { newUsers } = this.state;
+        const item = <UserCreateItem key={Date.now()} 
+            remove={() => this.removeUserCreateItem(item)} 
+            createUser={(user) => {
+                this.props.createUser(user);
+                this.removeUserCreateItem(item);
+            }}/>;
+        newUsers.push(item);
+        this.setState({ newUsers });
+    }
+
+    removeUserCreateItem = (item) => {
+        const { newUsers } = this.state;
+        const result = newUsers.filter((user) => user !== item);
+        this.setState({ newUsers: result });
     }
 
     render(){
@@ -13,10 +45,30 @@ class Users extends React.Component{
             <div className="container">
                 <div className="d-flex justify-content-between pb-2 mb-1">
                     <h4>Список пользователей</h4>
-                    <button className="btn btn-outline-dark">
+                    <button className="btn btn-outline-dark" onClick={this.addUserCreateItem}>
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </div>
+                {
+                    this.state.newUsers.length > 0 && (
+                        <table className="table">
+                            <thead>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Роль</th>
+                                <th scope="col">Пароль</th>
+                                <th scope="col">Пароль</th>
+                                <th scope="col"></th>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.state.newUsers.map((newUser) => {
+                                        return newUser;
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    )
+                }
                 <table className="table table-hover">
                     <thead>
                         <th scope="col">Id</th>
@@ -54,7 +106,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(loadUsers());
         },
         deleteUser: (id) => {
-            dispatch(deleteUser(id))
+            dispatch(deleteUser(id));
+        },
+        createUser: (user) => {
+            dispatch(createUser(user));
         }
     }
 }

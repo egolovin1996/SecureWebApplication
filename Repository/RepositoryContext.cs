@@ -12,5 +12,12 @@ namespace Repository
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options) 
             : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(p => new { p.Name })
+                .IsUnique();
+        }
     }
 }
