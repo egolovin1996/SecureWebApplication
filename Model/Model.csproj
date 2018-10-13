@@ -12,6 +12,7 @@
     <Folder Include="Vulnerability\" />
     <Folder Include="Vulnerability\Filters\" />
     <Folder Include="Menu\" />
+    <Folder Include="Chat\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />

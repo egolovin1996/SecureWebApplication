@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model.Vulnerability;
-using Model.Identity;
+using Model.Chat;
 using Repository.InternalModels;
 
 namespace Repository
@@ -8,6 +8,9 @@ namespace Repository
     public class RepositoryContext : DbContext
     {
         public DbSet<Vulnerability> Vulnerabilities { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+
         internal DbSet<User> Users { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options) 
