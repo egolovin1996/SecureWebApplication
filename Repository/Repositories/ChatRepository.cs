@@ -4,7 +4,6 @@ using Model.Chat;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {

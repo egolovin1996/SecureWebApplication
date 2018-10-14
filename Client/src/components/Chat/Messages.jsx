@@ -2,22 +2,39 @@ import React from 'react';
 import MessageItem from "./MessageItem"
 import { connect } from 'react-redux';
 import { loadMessages, addMessage } from '../../store/chat/chatActions';
+import * as signalR from "@aspnet/signalr";
 
 class ChatItem extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             text: '',
+            hubConnection: null,
             chatId: this.props.match.params.chatId,
         };
     }
 
     componentDidMount(){
         const { chatId } = this.state;
-        console.log(chatId);
         this.props.loadMessages(chatId);
         this.scrollToBottom();
+
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl('https://localhost:5001/chat')
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        hubConnection.start().catch(err => console.error(err.toString()));
+        hubConnection.on("send", (message) => {
+            console.log(message);
+        })
     }
+
+    // register = () => {
+    //     console.log(hubConnection);
+    //     hubConnection.send("addToChat", this.state.chatId)
+    //     .then(() => console.log("added"));
+    // }
 
     componentWillReceiveProps(nextProps) {
         const newChatId = nextProps.match.params.chatId;
@@ -56,7 +73,6 @@ class ChatItem extends React.Component{
     }
 
     scrollToBottom = () => {
-        console.log("scroll");
         this.messagesEnd.scrollIntoView({ behavior: "instant" });
     }
 

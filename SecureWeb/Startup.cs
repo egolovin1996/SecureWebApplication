@@ -10,6 +10,7 @@ using Repository.Factories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SecureWeb.Helpers;
+using SecureWeb.Hubs;
 
 namespace SecureWeb
 {
@@ -40,7 +41,7 @@ namespace SecureWeb
                         };
                     });
 
-
+            services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // AddScope – инстанс создается 1 раз на каждый request от клиента к серверу
@@ -73,6 +74,11 @@ namespace SecureWeb
             app.UseAuthentication();
             // app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chat");
+            });
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.Chat;
 using Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using SecureWeb.Hubs;
 
 namespace SecureWeb.Controllers
 {
@@ -11,6 +12,7 @@ namespace SecureWeb.Controllers
     public class ChatController : Controller
     {
         readonly IChatRepository _repository;
+        //readonly IHubContext<ChatHub> _hubContext;
 
         public ChatController(IChatRepository repository)
         {
@@ -42,6 +44,9 @@ namespace SecureWeb.Controllers
         {
             message.UserName = User.Identity.Name;
             _repository.AddMessage(message);
+
+            var chat = new ChatHub();
+           //chat.SendToChat(message, message.ChatId.ToString());
 
             return Ok();
         }
