@@ -96,9 +96,25 @@ export function createChat(chat) {
         fetch('/api/chat/createChat', requestOptions)
             .then(handleResponse)
             .then((id) => {
-                console.log(id);
                 history.push('/chat/'+id);
                 dispatch(loadChats()); 
+            }) 
+            .catch((err) => {
+                throw err; 
+            }) 
+    }
+}
+
+export function deleteChat(id) {
+    return (dispatch) => {
+        const requestOptions = {
+            headers: getAuthHeader()
+        };
+        fetch('/api/chat/deleteChat/'+id, requestOptions)
+            .then(handleResponse)
+            .then(() => {
+                dispatch(loadChats()); 
+                history.push('/chat');
             }) 
             .catch((err) => {
                 throw err; 

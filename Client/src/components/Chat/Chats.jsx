@@ -4,11 +4,16 @@ import { Route } from 'react-router-dom';
 import ChatItem from './ChatItem';
 import Messages from './Messages'
 import NewChat from './NewChat'
-import { loadChats } from '../../store/chat/chatActions';
+import { loadChats, deleteChat } from '../../store/chat/chatActions';
 
 class Chats extends React.Component{
     componentDidMount(){
         this.props.loadChats();
+    }
+
+    handleDelete = (e, id) => {
+        e.preventDefault();
+        this.props.deleteChat(id);
     }
 
     render(){
@@ -27,6 +32,7 @@ class Chats extends React.Component{
                                         vulnerabilityIdentifier={item.vulnerabilityIdentifier}
                                         lastMessageText={item.lastMessageText}
                                         lastMessageDate={item.lastMessageDate}
+                                        deleteChat={this.handleDelete}
                                     />
                                 )
                             }
@@ -55,6 +61,9 @@ const mapDispatchToProps = dispatch => {
     return {
         loadChats: () => {
             dispatch(loadChats());
+        },
+        deleteChat: (id) => {
+            dispatch(deleteChat(id));
         }
     }
 }

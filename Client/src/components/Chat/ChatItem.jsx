@@ -13,6 +13,8 @@ class ChatItem extends React.Component{
                         <Moment format="DD.MM.YY HH:mm">
                             {this.props.lastMessageDate}
                         </Moment>
+                        <button class="btn btn-sm fa fa-times ml-2" 
+                        onClick={(e) => this.props.deleteChat(e, this.props.id)}/>
                     </small>
                 </div>
                 <p class="mb-1">{this.props.lastMessageText}</p>

@@ -16,6 +16,7 @@ class ChatItem extends React.Component{
         const { chatId } = this.state;
         console.log(chatId);
         this.props.loadMessages(chatId);
+        this.scrollToBottom();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,6 +26,10 @@ class ChatItem extends React.Component{
             this.setState({chatId: newChatId});
             this.props.loadMessages(newChatId);
         }  
+    }
+      
+    componentDidUpdate() {
+        this.scrollToBottom();
     }
 
     handleChange = (e) => {
@@ -50,20 +55,29 @@ class ChatItem extends React.Component{
         this.setState({ text: '' });
     }
 
+    scrollToBottom = () => {
+        console.log("scroll");
+        this.messagesEnd.scrollIntoView({ behavior: "instant" });
+    }
+
     render(){
         const { text } = this.state;
 
         return(
             <ul class="list-group list-group-flush h-100">
-                <li class="list-group-item" style={{height: '90%', overflowY: 'scroll'}}>
-                {
-                    this.props.messages && this.props.messages.map(item =>
-                        <MessageItem 
-                            key={item.date}  
-                            text={item.text} 
-                            date={item.date}
-                            userName={item.userName}/>)
-                }
+                <li class="list-group-item" 
+                    style={{height: '90%', overflowY: 'scroll'}}>
+                    {
+                        this.props.messages && this.props.messages.map(item =>
+                            <MessageItem 
+                                key={item.date}  
+                                text={item.text} 
+                                date={item.date}
+                                userName={item.userName}/>)
+                    }
+                    <div style={{ float:"left", clear: "both" }}
+                        ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
                 </li>
                 <li class="list-group-item">
                     <div class="input-group">
