@@ -13,6 +13,15 @@ class Filters extends React.Component{
         this.props.loadFilters();
     }
 
+    applyCallback = () => {
+        this.props.loadResults(this.props.options);
+    }
+
+    addFilterToWhere (propertyName, value) {
+        this.whereFilters[propertyName] = value;
+        this.props.setWhere(this.whereFilters);
+    }
+
     render(){
         return(
             <div>
@@ -21,8 +30,7 @@ class Filters extends React.Component{
                         (item) =>
                         <div className="form-group">
                             <Search
-                                placeholder={item.placeholder}
-                                labelText={item.label}
+                                placeholder={item.label}
                                 setValue={(value) => {
                                     this.addFilterToWhere(item.propertyName, value)}}
                             />
@@ -38,15 +46,6 @@ class Filters extends React.Component{
                     </div>
             </div>
         );
-    }
-
-    applyCallback = () => {
-        this.props.loadResults(this.props.options);
-    }
-
-    addFilterToWhere (propertyName, value) {
-        this.whereFilters[propertyName] = value;
-        this.props.setWhere(this.whereFilters);
     }
 }
 

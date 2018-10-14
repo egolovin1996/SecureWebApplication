@@ -11,5 +11,9 @@ namespace Model.Chat
 
         public int VulnerabilityId { get; set; }
         public Vulnerability.Vulnerability Vulnerability { get; set; }
+
+        public Chat(){
+            Messages = new List<Message>();
+        }
     }
 }

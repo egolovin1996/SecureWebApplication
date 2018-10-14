@@ -6,6 +6,7 @@ import filterOptionsReducer from './filterOptions/filterOptionsReducer';
 import authReducer from './auth/authReducers';
 import menuReducer from './menu/menuReducers';
 import adminReducer from './admin/adminReducers';
+import chatReducer from './chat/chatReducers';
 
 const store = createStore(combineReducers(
     {
@@ -14,7 +15,8 @@ const store = createStore(combineReducers(
         filterOptions: filterOptionsReducer,
         auth: authReducer,
         menu: menuReducer,
-        admin: adminReducer
+        admin: adminReducer,
+        chat: chatReducer
     }
 ), applyMiddleware(thunk));
 

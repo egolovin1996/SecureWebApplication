@@ -18,3 +18,5 @@ export const MENU_CLEAR = "MENU_CLEAR";
 
 export const USERS_LOADED = "USERS_LOADED";
 
+export const CHATS_LOADED = "CHATS_LOADED";
+export const MESSAGES_LOADED = "MESSAGES_LOADED";

@@ -5,3 +5,13 @@
 .container-fluid{
   padding-top: 30px;
 }
+
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.active-chat{
+  background-color: lightgrey;
+}

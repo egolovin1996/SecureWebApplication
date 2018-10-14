@@ -7,7 +7,7 @@ namespace Repository.Interfaces
     {
         void AddChat(Chat chat);
         void DeleteChat(int id);
-        IEnumerable<Chat> GetChats();
+        IEnumerable<ChatDisplayModel> GetChats();
         void AddMessage(Message message);
         void AddMessage(Message message, int ChatId);
         void DeleteMessage(int id);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using Model.Identity;
 using Repository.Interfaces;
 using Repository.Repositories.Base;
@@ -28,6 +29,12 @@ namespace Repository.Repositories
         public void DeleteUser(int id)
         {
             var user = Context.Users.Single(u => u.Id == id);
+
+            if(user.Role == Role.Admin 
+               && !Context.Users.Any(u => u.Role == Role.Admin && u.Id != user.Id)){
+                throw new Exception("Невозможно удалить последнего админа");
+            }
+
             Context.Users.Remove(user);
             Context.SaveChanges();
         }

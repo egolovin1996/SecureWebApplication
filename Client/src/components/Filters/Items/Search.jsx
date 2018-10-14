@@ -5,7 +5,6 @@ class Search extends React.Component{
     render(){
         return(
             <div>
-                <label>{this.props.labelText}</label>
                 <input 
                     type="text" 
                     className="form-control" 
