@@ -6,7 +6,7 @@ class ChatItem extends React.Component{
    render(){
         return(
             <Link to={'/chat/'+ this.props.id} 
-            className="list-group-item list-group-item-action flex-column align-items-start">
+            className="list-group-item list-group-item-action flex-column align-items-start active-chat">
                 <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{this.props.name}</h5>
                     <small>

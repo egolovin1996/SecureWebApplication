@@ -77,6 +77,7 @@ namespace Repository.Repositories
             return chats.OrderByDescending(c => c.LastMessageDate);
         }
 
-        public IEnumerable<Message> GetMessages(int chatId) => Context.Messages.Where(m => m.ChatId == chatId);
+        public IEnumerable<Message> GetMessages(int chatId) 
+            => Context.Messages.Where(m => m.ChatId == chatId).OrderBy(m => m.Date);
     }
 }
