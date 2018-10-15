@@ -13,9 +13,7 @@ class Header extends React.Component {
 
     render(){
         const isAuthenticated = this.props.loggedIn;
-        console.log('render');
-
-        console.log(this.props);
+        
         return(
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-between">
                 <div className="navbar-brand">
@@ -28,7 +26,7 @@ class Header extends React.Component {
                 {
                     this.props.menuItems && this.props.menuItems.map(
                         (item) => 
-                            <MenuItem route={item.route} name={item.name}/>)
+                            <MenuItem key={item.route} route={item.route} name={item.name}/>)
                 }
                 </ul>
                 {

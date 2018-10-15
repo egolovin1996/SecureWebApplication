@@ -1,7 +1,7 @@
 import React from 'react';
 import MessageItem from "./MessageItem"
 import { connect } from 'react-redux';
-import { loadMessages, addMessage } from '../../store/chat/chatActions';
+import { loadChats, loadMessages, addMessage } from '../../store/chat/chatActions';
 import * as signalR from "@aspnet/signalr";
 
 class ChatItem extends React.Component{
@@ -24,17 +24,19 @@ class ChatItem extends React.Component{
             .configureLogging(signalR.LogLevel.Information)
             .build();
 
-        hubConnection.start().catch(err => console.error(err.toString()));
-        hubConnection.on("send", (message) => {
-            console.log(message);
+        this.setState({ hubConnection }, () => {
+            this.state.hubConnection
+                .start()
+                .catch(err => console.log(err));
+            });
+
+        hubConnection.on("NewMessage", (newChatId) => {
+            this.props.loadChats();
+            if(chatId == parseInt(newChatId)){
+                this.props.loadMessages(chatId);
+            }
         })
     }
-
-    // register = () => {
-    //     console.log(hubConnection);
-    //     hubConnection.send("addToChat", this.state.chatId)
-    //     .then(() => console.log("added"));
-    // }
 
     componentWillReceiveProps(nextProps) {
         const newChatId = nextProps.match.params.chatId;
@@ -62,13 +64,16 @@ class ChatItem extends React.Component{
     }
 
     addMessage = () => {
-        const { text } = this.state;
+        const { text, hubConnection, chatId } = this.state;
         if(!text) return;
         const message = {
             text: text,
-            chatId: this.props.match.params.chatId
+            chatId: chatId,
         };
+
         this.props.addMessage(message);
+        hubConnection.send("SendToChat", chatId);
+
         this.setState({ text: '' });
     }
 
@@ -80,8 +85,8 @@ class ChatItem extends React.Component{
         const { text } = this.state;
 
         return(
-            <ul class="list-group list-group-flush h-100">
-                <li class="list-group-item" 
+            <ul className="list-group list-group-flush h-100">
+                <li className="list-group-item" 
                     style={{height: '90%', overflowY: 'scroll'}}>
                     {
                         this.props.messages && this.props.messages.map(item =>
@@ -95,19 +100,19 @@ class ChatItem extends React.Component{
                         ref={(el) => { this.messagesEnd = el; }}>
                     </div>
                 </li>
-                <li class="list-group-item">
-                    <div class="input-group">
+                <li className="list-group-item">
+                    <div className="input-group">
                         <input 
                             type="text" 
-                            class="form-control" 
+                            className="form-control" 
                             placeholder="Введите текст"
                             name="text" 
                             value={text} 
                             onChange={this.handleChange}
                             onKeyDown={this.handleKeyDown}/>
-                        <div class="input-group-append">
+                        <div className="input-group-append">
                             <button 
-                                class="btn btn-outline-success fa fa-paper-plane-o" 
+                                className="btn btn-outline-success fa fa-paper-plane-o" 
                                 type="button"
                                 onClick={this.addMessage}
                                 />
@@ -127,6 +132,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        loadChats: () => {
+            dispatch(loadChats());
+        },
         loadMessages: (id) => {
             dispatch(loadMessages(id));
         },

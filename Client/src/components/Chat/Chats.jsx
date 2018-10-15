@@ -21,8 +21,8 @@ class Chats extends React.Component{
             <div className="container" style={{height: '600px'}}>
                 <div className="row h-100">
                     <div className="col-sm-4 h-100">
-                        <div class="card h-100" style={{overflowY: 'scroll'}}>
-                            <div class="list-group list-group-flush">
+                        <div className="card h-100" style={{overflowY: 'scroll'}}>
+                            <div className="list-group list-group-flush">
                             {
                                 this.props.chats && this.props.chats.map((item) =>
                                     <ChatItem

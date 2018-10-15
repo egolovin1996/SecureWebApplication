@@ -45,9 +45,6 @@ namespace SecureWeb.Controllers
             message.UserName = User.Identity.Name;
             _repository.AddMessage(message);
 
-            var chat = new ChatHub();
-           //chat.SendToChat(message, message.ChatId.ToString());
-
             return Ok();
         }
 

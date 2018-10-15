@@ -8,24 +8,9 @@ namespace SecureWeb.Hubs
     //[Authorize]
     public class ChatHub : Hub
     {
-        public async Task SendToChat(Message message, string chatId)
+        public async Task SendToChat(int chatId)
         {
-            await Clients.Group(chatId).SendAsync("Send", message);
-        }
-
-        public async Task AddToChat(string chatId)
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, chatId);
-            await Clients.Group(chatId).SendAsync(
-                "Send", $"{Context.ConnectionId} пользователь присоеденился к чату({chatId}).");
-        }
-
-        public async Task RemoveFromGroup(string chatId)
-        {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatId);
-
-            await Clients.Group(chatId).SendAsync(
-                "Send", $"{Context.ConnectionId} пользователь покинул чат {chatId}.");
+            await Clients.Others.SendAsync("NewMessage", chatId);
         }
     }
 }

@@ -41,6 +41,20 @@ namespace SecureWeb
                         };
                     });
 
+            // Разрешаем подключение независмого источника
+            services.AddCors(
+                options => options.AddPolicy("CorsPolicy",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            //.WithOrigins("http://localhost:3000")
+                            .AllowCredentials()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    })
+            );
+
             services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -71,14 +85,15 @@ namespace SecureWeb
                 app.UseHsts();
             }
 
-            app.UseAuthentication();
-            // app.UseHttpsRedirection();
-            app.UseMvc();
-
+            app.UseCors("CorsPolicy");
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chat");
             });
+
+            app.UseAuthentication();
+            // app.UseHttpsRedirection();
+            app.UseMvc();
         }
     }
 }
