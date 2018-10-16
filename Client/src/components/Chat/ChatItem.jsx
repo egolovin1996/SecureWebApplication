@@ -6,7 +6,7 @@ class ChatItem extends React.Component{
    render(){
         return(
             <Link to={'/chat/'+ this.props.id} 
-            className="list-group-item list-group-item-action flex-column align-items-start active-chat">
+            className="list-group-item list-group-item-action flex-column align-items-start">
                 <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{this.props.name}</h5>
                     <small>
@@ -14,7 +14,7 @@ class ChatItem extends React.Component{
                             {this.props.lastMessageDate}
                         </Moment>
                         <button className="btn btn-sm fa fa-times ml-2" 
-                        onClick={(e) => this.props.deleteChat(e, this.props.id)}/>
+                                onClick={(e) => this.props.deleteChat(e, this.props.id)}/>
                     </small>
                 </div>
                 <p className="mb-1">{this.props.lastMessageText}</p>

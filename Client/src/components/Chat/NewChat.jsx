@@ -13,12 +13,12 @@ class NewChat extends React.Component{
         this.props.clearMessages();
     }
 
-    handleCreateClick = () => {
-        this.setState({ create: true });
-    }
-
     handleCancelClick = () => {
         this.setState({ create: false });
+    }
+
+    handleCreateClick = () => {
+        this.setState({ create: true });
     }
 
     render(){

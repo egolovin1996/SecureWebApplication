@@ -1,8 +1,8 @@
 import React from 'react';
+import * as signalR from "@aspnet/signalr";
 import MessageItem from "./MessageItem"
 import { connect } from 'react-redux';
 import { loadChats, loadMessages, addMessage } from '../../store/chat/chatActions';
-import * as signalR from "@aspnet/signalr";
 
 class ChatItem extends React.Component{
     constructor(props){
@@ -32,7 +32,8 @@ class ChatItem extends React.Component{
 
         hubConnection.on("NewMessage", (newChatId) => {
             this.props.loadChats();
-            if(chatId == parseInt(newChatId)){
+            if( parseInt(chatId, 10) === parseInt(newChatId, 10)){
+                
                 this.props.loadMessages(chatId);
             }
         })
@@ -66,11 +67,11 @@ class ChatItem extends React.Component{
     addMessage = () => {
         const { text, hubConnection, chatId } = this.state;
         if(!text) return;
+
         const message = {
             text: text,
             chatId: chatId,
         };
-
         this.props.addMessage(message);
         hubConnection.send("SendToChat", chatId);
 
