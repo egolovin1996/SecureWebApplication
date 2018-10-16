@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.ComponentModel.DataAnnotations;
 
-namespace SecureWeb.ViewModels
+namespace SecureWeb.ViewModels.User
 {
     public class RegisterViewModel
     {

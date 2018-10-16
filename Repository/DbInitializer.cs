@@ -13,18 +13,17 @@ namespace Repository
         {
             context.Database.Migrate();
 
-            if (context.Users.Count() == 0)
-            {
-                context.Users.Add(new User()
-                {
-                    // Можно вынести логин и пароль в кофиг
-                    Name = "admin",
-                    PasswordHash = IdentityHelper.GetPasswordHash("admin"),
-                    Role = Role.Admin
-                });
+            if (context.Users.Any()) return;
 
-                context.SaveChanges();
-            }
+            context.Users.Add(new User()
+            {
+                // Todo: вынести логин и пароль в кофиг
+                Name = "admin",
+                PasswordHash = IdentityHelper.GetPasswordHash("admin"),
+                Role = Role.Admin
+            });
+
+            context.SaveChanges();
         }
     }
 }

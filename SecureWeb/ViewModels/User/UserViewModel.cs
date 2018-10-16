@@ -1,5 +1,4 @@
-﻿using System;
-namespace SecureWeb.ViewModels
+﻿namespace SecureWeb.ViewModels.User
 {
     public struct UserViewModel
     {

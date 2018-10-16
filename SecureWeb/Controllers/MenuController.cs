@@ -5,14 +5,11 @@ using Model.Identity;
 using Model.Menu;
 using SecureWeb.Helpers;
 
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SecureWeb.Controllers
 {
     [Route("api/[controller]")]
     public class MenuController : Controller
-    { 
+    {
         [Authorize]
         [HttpGet]
         [Route("getMenuItems")]
@@ -32,7 +29,8 @@ namespace SecureWeb.Controllers
                 }
             };
 
-            if(User.IsInRole(EnumHelper.RoleToString(Role.Admin))){
+            if (User.IsInRole(EnumHelper.RoleToString(Role.Admin)))
+            {
                 menuItems.Add(new MenuItem()
                 {
                     Route = "/admin",

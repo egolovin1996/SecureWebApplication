@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.Identity;
 using Repository.Interfaces;
-using SecureWeb.ViewModels;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using SecureWeb.ViewModels.User;
 using System.IdentityModel.Tokens.Jwt;
 using SecureWeb.Helpers;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +41,7 @@ namespace SecureWeb.Controllers
         [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("createUser")]
-        public IActionResult CreateUser([FromBody] CreateUserViewModel model)
+        public IActionResult CreateUser([FromBody] CreateViewModel model)
         {
             _repository.CreateUser(new UserCreateModel()
             {
@@ -75,7 +68,8 @@ namespace SecureWeb.Controllers
         [Route("getAllUsers")]
         public IEnumerable<UserViewModel> GetAllUsers()
         {
-            return _repository.GetAllUsers().Select(u => new UserViewModel(){
+            return _repository.GetAllUsers().Select(u => new UserViewModel()
+            {
                 Id = u.Id,
                 Name = u.Name,
                 Role = EnumHelper.RoleToString(u.Role)
@@ -89,9 +83,9 @@ namespace SecureWeb.Controllers
             var user = _repository.GetUser(model.UserName, model.Password);
             if (user == null) return Unauthorized();
 
-            // Todo разнести код
+            // Todo: разнести код
             ClaimsIdentity identity = null;
-            var claims = new List<Claim> 
+            var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, EnumHelper.RoleToString(user.Role))
@@ -105,11 +99,11 @@ namespace SecureWeb.Controllers
 
             var dateTime = DateTime.Now;
             var token = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
+                issuer: AuthOptions.Issuer,
+                audience: AuthOptions.Audience,
                 notBefore: dateTime,
                 claims: identity.Claims,
-                expires: dateTime.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                expires: dateTime.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
                 signingCredentials: new SigningCredentials(
                     AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));

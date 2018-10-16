@@ -25,52 +25,46 @@ namespace SecureWeb
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.RequireHttpsMetadata = false;
-                        options.SaveToken = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidIssuer = AuthOptions.ISSUER,
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            ValidateLifetime = true,
-                            ValidateIssuerSigningKey = true,
-                            ClockSkew = TimeSpan.Zero
-                        };
-                    });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = AuthOptions.Issuer,
+                    ValidAudience = AuthOptions.Audience,
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             // Разрешаем подключение независмого источника
-            services.AddCors(
-                options => options.AddPolicy("CorsPolicy",
-                    builder =>
-                    {
-                        builder
-                            .AllowAnyOrigin()
-                            //.WithOrigins("http://localhost:3000")
-                            .AllowCredentials()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    })
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        //.WithOrigins("http://localhost:3000")
+                        .AllowCredentials()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                })
             );
 
             services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // AddScope – инстанс создается 1 раз на каждый request от клиента к серверу
-            services.AddScoped<IRepositoryContextFactory, PostgreSQLContextFactory>();
-            services.AddScoped<IVulnerabilityRepository>(
-                provider => new VulnerabilityRepository(
-                    Configuration.GetConnectionString("PostgreSQLConnection"),
+            services.AddScoped<IRepositoryContextFactory, PostgreSqlContextFactory>();
+            services.AddScoped<IVulnerabilityRepository>(provider =>
+                new VulnerabilityRepository(Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
-            services.AddScoped<IUserRepository>(
-                provider => new UserRepository(
-                    Configuration.GetConnectionString("PostgreSQLConnection"),
+            services.AddScoped<IUserRepository>(provider =>
+                new UserRepository(Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
-            services.AddScoped<IChatRepository>(
-                provider => new ChatRepository(
-                    Configuration.GetConnectionString("PostgreSQLConnection"),
+            services.AddScoped<IChatRepository>(provider =>
+                new ChatRepository(Configuration.GetConnectionString("PostgreSQLConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
         }
         

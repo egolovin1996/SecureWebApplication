@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Model.Identity;
 
-namespace SecureWeb.ViewModels
+namespace SecureWeb.ViewModels.User
 {
-    public class CreateUserViewModel
+    public class CreateViewModel
     {
         [Required]
         [Display(Name = "Имя пользолвателя")]

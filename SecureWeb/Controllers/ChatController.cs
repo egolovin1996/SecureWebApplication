@@ -12,7 +12,6 @@ namespace SecureWeb.Controllers
     public class ChatController : Controller
     {
         readonly IChatRepository _repository;
-        //readonly IHubContext<ChatHub> _hubContext;
 
         public ChatController(IChatRepository repository)
         {
@@ -28,7 +27,6 @@ namespace SecureWeb.Controllers
             return Ok(chat.Id);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpGet]
         [Route("deleteChat/{id}")]
         public IActionResult DeleteChat(int id)

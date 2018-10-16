@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Factories
 {
-    public class PostgreSQLContextFactory: IRepositoryContextFactory
+    public class PostgreSqlContextFactory: IRepositoryContextFactory
     {
         public RepositoryContext CreateDbContext(string connectionString)
         {

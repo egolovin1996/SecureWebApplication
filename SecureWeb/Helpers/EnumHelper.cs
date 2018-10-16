@@ -12,7 +12,7 @@ namespace SecureWeb.Helpers
                 case Role.User:
                     return "user";
                 default:
-                    throw new NotSupportedException();
+                    throw new NotImplementedException();
             }
         }
     }

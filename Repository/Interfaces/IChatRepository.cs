@@ -9,7 +9,7 @@ namespace Repository.Interfaces
         void DeleteChat(int id);
         IEnumerable<ChatDisplayModel> GetChats();
         void AddMessage(Message message);
-        void AddMessage(Message message, int ChatId);
+        void AddMessage(Message message, int chatId);
         void DeleteMessage(int id);
         IEnumerable<Message> GetMessages(int chatId);
     }
