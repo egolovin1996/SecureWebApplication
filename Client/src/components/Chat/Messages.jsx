@@ -88,7 +88,7 @@ class ChatItem extends React.Component{
         return(
             <ul className="list-group list-group-flush h-100">
                 <li className="list-group-item" 
-                    style={{height: '90%', overflowY: 'scroll'}}>
+                    style={{height: '90%', overflowY: 'auto'}}>
                     {
                         this.props.messages && this.props.messages.map(item =>
                             <MessageItem 
