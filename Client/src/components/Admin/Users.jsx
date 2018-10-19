@@ -46,18 +46,20 @@ class Users extends React.Component{
                 <div className="d-flex justify-content-between pb-2 mb-1">
                     <h4>Список пользователей</h4>
                     <button className="btn btn-outline-dark" onClick={this.addUserCreateItem}>
-                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <i className="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </div>
                 {
                     this.state.newUsers.length > 0 && (
                         <table className="table">
                             <thead>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Роль</th>
-                                <th scope="col">Пароль</th>
-                                <th scope="col">Пароль</th>
-                                <th scope="col"></th>
+                                <tr>
+                                    <th scope="col">Имя</th>
+                                    <th scope="col">Роль</th>
+                                    <th scope="col">Пароль</th>
+                                    <th scope="col">Пароль</th>
+                                    <th scope="col"></th>
+                                </tr>
                             </thead>
                             <tbody>
                                 {
@@ -71,10 +73,12 @@ class Users extends React.Component{
                 }
                 <table className="table table-hover">
                     <thead>
-                        <th scope="col">Id</th>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Роль</th>
-                        <th scope="col"></th>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Роль</th>
+                            <th scope="col"></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {

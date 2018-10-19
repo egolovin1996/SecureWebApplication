@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SecureWeb.Helpers;
 using SecureWeb.Hubs;
+using SecureWeb.Middleware;
 
 namespace SecureWeb
 {
@@ -87,6 +88,7 @@ namespace SecureWeb
 
             app.UseAuthentication();
             // app.UseHttpsRedirection();
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
     }

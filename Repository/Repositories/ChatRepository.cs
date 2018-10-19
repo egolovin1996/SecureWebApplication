@@ -62,7 +62,7 @@ namespace Repository.Repositories
                 LastMessageDate = c.Messages.OrderByDescending(m => m.Date).First().Date,
                 VulnerabilityId = c.VulnerabilityId,
                 VulnerabilityIdentifier = c.Vulnerability.Identifier
-            }).ToList();
+            });
 
             // Аналогичный запрос
             //foreach(var chat in chats)
@@ -74,7 +74,7 @@ namespace Repository.Repositories
             //    chat.LastMessageDate = lastMessage.Date;
             //}
 
-            return chats.OrderByDescending(c => c.LastMessageDate);
+            return chats.OrderByDescending(c => c.LastMessageDate).ToList();
         }
 
         public IEnumerable<Message> GetMessages(int chatId) =>

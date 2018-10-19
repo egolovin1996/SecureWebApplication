@@ -2,6 +2,7 @@ import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE, AUTH_LOGOUT
 import { accountService } from '../../services/accountService';
 import { history } from '../../helpers/history'
 import { loadMenu, clearMenu } from '../menu/menuActions'
+import { handleResponse } from '../../helpers/requestHelper'
 
 
 export function login(userName, password) {
@@ -66,6 +67,7 @@ export function logout() {
 export function register(model) {
     return dispatch => {
         accountService.register(model)
+        .then(handleResponse)
         .then(response => {
             if(response.status === 200){
                 console.log(response);

@@ -10,6 +10,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Helpers\" />
     <Folder Include="Hubs\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
 
   <ItemGroup>
