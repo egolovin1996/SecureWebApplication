@@ -65,7 +65,7 @@ namespace Repository.Repositories
         public IEnumerable<UserDisplayModel> GetAllUsers()
         {
             // Реализовать эксплисит
-            return Context.Users.Select(u => UserToDisplayModel(u));
+            return Context.Users.Select(u => UserToDisplayModel(u)).ToList();
         }
 
         private UserDisplayModel UserToDisplayModel(User user) 

@@ -78,6 +78,6 @@ namespace Repository.Repositories
         }
 
         public IEnumerable<Message> GetMessages(int chatId) =>
-            Context.Messages.Where(m => m.ChatId == chatId).OrderBy(m => m.Date);
+            Context.Messages.Where(m => m.ChatId == chatId).OrderBy(m => m.Date).ToList();
     }
 }

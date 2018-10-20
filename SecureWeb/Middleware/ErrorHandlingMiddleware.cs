@@ -32,10 +32,6 @@ namespace SecureWeb.Middleware
             var code = HttpStatusCode.InternalServerError;
             var message = exception.Message;
 
-            if(exception is DbUpdate){
-
-            }
-
             var result = JsonConvert.SerializeObject(new { error = message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;

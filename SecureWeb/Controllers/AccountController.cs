@@ -68,12 +68,14 @@ namespace SecureWeb.Controllers
         [Route("getAllUsers")]
         public IEnumerable<UserViewModel> GetAllUsers()
         {
-            return _repository.GetAllUsers().Select(u => new UserViewModel()
+            var result = _repository.GetAllUsers().Select(u => new UserViewModel()
             {
                 Id = u.Id,
                 Name = u.Name,
                 Role = EnumHelper.RoleToString(u.Role)
-            }).ToList();
+            });
+
+            return result;
         }
 
         [HttpPost]

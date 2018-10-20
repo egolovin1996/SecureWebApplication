@@ -60,18 +60,18 @@ namespace SecureWeb.Controllers
         [Route("getChats")]
         public IActionResult GetChats()
         {
-            var chats = _repository.GetChats().ToList();
+            var result = _repository.GetChats();
 
-            return Ok(chats);
+            return Ok(result);
         }
 
         [HttpGet]
         [Route("getMessages/{chatId}")]
         public IActionResult GetMessages(int chatId)
         {
-            var messages = _repository.GetMessages(chatId).ToList();
+            var result = _repository.GetMessages(chatId);
 
-            return Ok(messages);
+            return Ok(result);
         }
     }
 }
