@@ -5,12 +5,12 @@ import Table from './Relults/Table'
 class Home extends Component {
     render() {
       return (
-        <div className="container-fluid"> 
+        <div className="container"> 
             <div className="row no-gutters"> 
-                <div className="col-3"> 
+                <div className="col-3 pr-2"> 
                     <Filters/> 
                 </div> 
-                <div className="col-9"> 
+                <div className="col-9 pl-2"> 
                     <Table/> 
                 </div> 
             </div>

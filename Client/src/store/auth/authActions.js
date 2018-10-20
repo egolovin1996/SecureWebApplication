@@ -73,8 +73,6 @@ export function register(model) {
                 console.log(response);
                 dispatch(login(model.userName, model.password));
             }
-
-            // Добавить обработчик ошибок
         });
     }
 }

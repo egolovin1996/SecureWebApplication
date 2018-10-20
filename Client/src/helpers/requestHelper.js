@@ -19,10 +19,11 @@ export function handleResponse(response) {
             // Если токен просрочет, то logout
             if (response.status === 401) {
                 accountService.logout();
-                //location.reload(true);
+                window.location.reload(true);
             }
 
-            const error = (data && data.message) || response.statusText;
+            const error = (data && data.error) || response.statusText;
+            console.log("Error: " + error);
             return Promise.reject(error);
         }
 

@@ -17,7 +17,7 @@ class ChatItem extends React.Component{
                                 onClick={(e) => this.props.deleteChat(e, this.props.id)}/>
                     </small>
                 </div>
-                <p className="mb-1">{this.props.lastMessageText}</p>
+                <p className="mb-1 ellipsis">{this.props.lastMessageText}</p>
                 <small>{this.props.vulnerabilityIdentifier}</small>
             </Link>
         );

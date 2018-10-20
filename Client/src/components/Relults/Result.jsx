@@ -1,20 +1,26 @@
 import React from 'react';
-import "./Results.css"
+
+const Cell = (props) => {
+    return(
+        <td>
+            {props.value}
+        </td>
+    );
+}
 
 class Result extends React.Component{
+    toJsName = (value) => {
+        return value[0].toLowerCase() + value.slice(1);
+    }
+
     render(){
         return(
-           <tr>
-                <td>
-                    {this.props.id}
-                </td>
-                <td>
-                    {this.props.text}
-                </td>
-                <td>
-                    {this.props.date}
-                </td>
-           </tr>
+            <tr>
+            {
+                this.props.columns && this.props.columns.map(
+                    (item) => <Cell key={item} value={this.props.row[this.toJsName(item)]}/>)
+            }
+            </tr>
         );
     }
 }

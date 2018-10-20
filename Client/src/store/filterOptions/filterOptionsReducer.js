@@ -1,6 +1,11 @@
-import { FILTER_OPTIONS_SET_PAGE, FILTER_OPTIONS_SET_WHERE, FILTER_OPTIONS_SET_ORDERBY } from "../actionTypes";
+import { 
+    FILTER_OPTIONS_SET_PAGE,
+    FILTER_OPTIONS_SET_WHERE,
+    FILTER_OPTIONS_SET_ORDERBY,
+    FILTER_OPTIONS_SET_TAKE,
+    FILTER_OPTIONS_SET_SKIP
+            } from "../actionTypes";
 
-const defaultTake = 10;
 const initialState = {
     take: 10,
     skip: 0,
@@ -28,21 +33,28 @@ export default function filterOptionsReducer(state = initialState, action) {
         case FILTER_OPTIONS_SET_PAGE:
             return { 
                 ...state,
-                skip: defaultTake * action.payload.pageNumber
+                skip: state.take * action.payload.pageNumber
             }
-
         case FILTER_OPTIONS_SET_WHERE:
             return { 
                 ...state, 
                 whereFilters: mapDictionaryToFilter(action.payload.whereEqualsOptions)
             }
-
         case FILTER_OPTIONS_SET_ORDERBY:
             return { 
                 ...state,
                 orderBy: action.payload.columnName
             }
-
+        case FILTER_OPTIONS_SET_TAKE:
+            return { 
+                ...state,
+                take: action.payload.take
+            }
+        case FILTER_OPTIONS_SET_SKIP:
+            return { 
+                ...state,
+                skip: action.payload.skip
+            }
         default:
             return state;
     }

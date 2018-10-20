@@ -1,24 +1,5 @@
-import { FILTERS_LOADING, FILTERS_LOADED } from "../actionTypes";
+import { FILTERS_LOADING, FILTERS_LOADED, COLUMNS_SELECTED } from "../actionTypes";
 import { getAuthHeader, handleResponse } from '../../helpers/requestHelper'
-
-function filtersLoading() { 
-    return { 
-        type: FILTERS_LOADING, 
-        payload: { 
-            state: "loading" 
-        } 
-    }; 
-} 
-    
-function filtersLoaded(data) {
-    return { 
-        type: FILTERS_LOADED, 
-        payload: { 
-            state: "loaded", 
-            data
-        } 
-    }; 
-}
     
 export function loadFilters() {
     return (dispatch) => { 
@@ -34,5 +15,39 @@ export function loadFilters() {
             .catch((err) => {
                 throw err; 
             }) 
+    } 
+
+    function filtersLoaded(data) {
+        return { 
+            type: FILTERS_LOADED, 
+            payload: { 
+                state: "loaded", 
+                data
+            } 
+        }; 
+    }
+
+    function filtersLoading() { 
+        return { 
+            type: FILTERS_LOADING, 
+            payload: { 
+                state: "loading" 
+            } 
+        }; 
+    } 
+}
+
+export function selectColumns(columns) {
+    return (dispatch) => { 
+        dispatch(selectColumns(columns)); 
+    } 
+
+    function selectColumns(columns) { 
+        return { 
+            type: COLUMNS_SELECTED, 
+            payload: { 
+                columns
+            } 
+        }; 
     } 
 }

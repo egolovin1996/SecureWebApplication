@@ -2,6 +2,14 @@ import React from 'react';
 import Result from './Result';
 import { connect } from 'react-redux';
 import { loadResults } from '../../store/results/resultsActions';
+import Pager from './Pager';
+import RowsSelector from './RowsSelector';
+
+const HeaderColumn = (props) => {
+    return (
+        <th scope="col">{props.text}</th>
+    );
+}
 
 class Table extends React.Component{
     componentWillMount() {
@@ -10,29 +18,43 @@ class Table extends React.Component{
 
     render(){
         return(
-           <table class="table">
-               <thead>
-               </thead>
-               <tbody>
-               {
-                    this.props.results && this.props.results.map(
-                        (item) =>
-                            <Result
-                                id={item.identifier}
-                                text={item.description}
-                                soft={item.software}
-                                date={item.date}
-                            />)
-                }
-               </tbody>
-           </table>
+            <div>
+                <div className="form-inline mb-3 justify-content-between">
+                    <Pager/>
+                    <RowsSelector/>
+                </div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                        {
+                            this.props.columns && this.props.columns.map(
+                                (item) => <HeaderColumn key={item} text={item}/>
+                            )
+                        }
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        this.props.vulnerabilities && this.props.vulnerabilities.map(
+                            (item) =>
+                                <Result
+                                    key={item.id}
+                                    row={item}
+                                    columns={this.props.columns}
+                                />)
+                    }
+                    </tbody>
+                </table>
+            </div>
+            
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        results: state.results.results,
+        vulnerabilities: state.results.vulnerabilities,
+        columns: state.filters.selectedColumns,
         options: state.filterOptions
     }
 };
