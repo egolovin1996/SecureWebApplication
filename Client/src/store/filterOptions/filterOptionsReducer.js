@@ -33,7 +33,7 @@ export default function filterOptionsReducer(state = initialState, action) {
         case FILTER_OPTIONS_SET_PAGE:
             return { 
                 ...state,
-                skip: state.take * action.payload.pageNumber
+                skip: state.take * (action.payload.pageNumber - 1)
             }
         case FILTER_OPTIONS_SET_WHERE:
             return { 

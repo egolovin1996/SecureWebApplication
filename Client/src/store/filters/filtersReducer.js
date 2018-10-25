@@ -20,7 +20,6 @@ export default function filtersReducer(state = initialState, action) {
                 filters: action.payload.data 
             }
         case COLUMNS_SELECTED:
-            console.log(initialState);
             return { 
                 ...state,
                 selectedColumns: action.payload.columns 

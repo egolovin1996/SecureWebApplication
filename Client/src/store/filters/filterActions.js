@@ -38,16 +38,10 @@ export function loadFilters() {
 }
 
 export function selectColumns(columns) {
-    return (dispatch) => { 
-        dispatch(selectColumns(columns)); 
-    } 
-
-    function selectColumns(columns) { 
-        return { 
-            type: COLUMNS_SELECTED, 
-            payload: { 
-                columns
-            } 
-        }; 
-    } 
+    return { 
+        type: COLUMNS_SELECTED, 
+        payload: { 
+            columns
+        } 
+    }; 
 }

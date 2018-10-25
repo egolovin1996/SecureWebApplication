@@ -14,11 +14,15 @@ class Pager extends React.Component{
 
     componentWillReceiveProps(nextProps) {
         const { lastPage } = this.state; 
-        const newlastPage = Math.ceil(nextProps.totalCount/nextProps.take);
+        const { totalCount, take, skip } = nextProps
+        const newlastPage = Math.ceil(totalCount/take);
         if(newlastPage !== lastPage){
             this.setState({
                 lastPage: newlastPage
             });
+        }
+        if(this.props.skip !== skip){
+            this.props.loadResults(nextProps.options);
         }
     }
 
@@ -59,6 +63,7 @@ const mapStateToProps = (state) => {
     return {
         totalCount: state.results.totalCount,
         take: state.filterOptions.take,
+        skip: state.filterOptions.skip,
         options: state.filterOptions
     }
 };
